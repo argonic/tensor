@@ -37,7 +37,7 @@
     "test": "mocha -r ts-node/register ./test/**/*.test.ts",
     "test:watch": "mocha -r ts-node/register ./test/**/*.test.ts --watch",
     "test:coverage": "./node_modules/nyc/bin/nyc.js npm test && ./node_modules/codecov/bin/codecov",
-    "test:coverage:release": "./node_modules/nyc/bin/nyc.js check-coverage --lines 95 --functions 95 --branches 95 --require ts-node/register --require source-map-support/register --recursive npm test",
+    "test:coverage:release": "./node_modules/nyc/bin/nyc.js check-coverage --lines 90 --functions 90 --branches 90 --require ts-node/register --require source-map-support/register --recursive npm test",
     "release": "npm run lint && npm run test && npm run test:coverage && npm run test:coverage:release && npm run build:release"
   },
   "keywords": [

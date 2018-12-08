@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1544239200550" clover="3.2.0">
-  <project timestamp="1544239200550" name="All files">
+<coverage generated="1544239739806" clover="3.2.0">
+  <project timestamp="1544239739807" name="All files">
     <metrics statements="163" coveredstatements="161" conditionals="53" coveredconditionals="49" methods="27" coveredmethods="27" elements="243" coveredelements="237" complexity="0" loc="163" ncloc="163" packages="1" files="1" classes="1">
       <file name="tensor.ts" path="/home/argonic/Desktop/Projects/tensor/src/tensor.ts">
         <metrics statements="163" coveredstatements="161" conditionals="53" coveredconditionals="49" methods="27" coveredmethods="27"/>
