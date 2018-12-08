@@ -19,7 +19,6 @@ ____
 - Fully tested with 100% code coverage
 - Lightweight with production zero-dependencies
 - Optimized for performance
-- Learning purposes
 - Tensor class:
     - The creation of tensors of ![equation](https://latex.codecogs.com/gif.latex?%24%24p%24%24) rank/dimensions
     - TypedArray as the flat tensor vector
