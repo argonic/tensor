@@ -6,10 +6,10 @@
 ____
 Tensors are multidimensional vector spaces that maps in a (multi-)linear manner to vectors, scalars, and other tensors to a resulting tensor.
 
-A tensor of type (p, q) is an assignment of a multidimensional array $$T^{i_1 \dots i_p}_{j_1 \dots j_q} [f]$$ to each basis $$f = (e_1, \dots ,e_n)$$ of an n-dimensional vector space such that, if we apply the change of basis. $$f \mapsto f .  R = (e_i R^i_1, \dots , e_i R^i_n)$$
+A tensor of type (p, q) is an assignment of a multidimensional array ![equation](https://latex.codecogs.com/gif.latex?%24%24T%5E%7Bi_1%20%5Cdots%20i_p%7D_%7Bj_1%20%5Cdots%20j_q%7D%20%5Bf%5D%24%24) to each basis ![equation](https://latex.codecogs.com/gif.latex?%24%24f%20%3D%20%28e_1%2C%20%5Cdots%20%2Ce_n%29%24%24) of an n-dimensional vector space such that, if we apply the change of basis. ![equation](https://latex.codecogs.com/gif.latex?%24%24f%20%5Cmapsto%20f%20.%20R%20%3D%20%28e_i%20R%5Ei_1%2C%20%5Cdots%20%2C%20e_i%20R%5Ei_n%29%24%24)
 
-Where $$i$$ is the $$i$$ th dimension, ranging from one to $$n$$ rank. the number $$j$$ is being the depth of the $$i$$ th dimension, ranging from one to $$q$$ dimension.
-A tensor is composed of subsequent tensors with the $$n$$ th tensors being composed of scalars.
+Where (https://latex.codecogs.com/gif.latex?%24%24i%24%24) is the (https://latex.codecogs.com/gif.latex?%24%24i%24%24) th dimension, ranging from one to ![equation](https://latex.codecogs.com/gif.latex?%24%24n%24%24) rank. the number ![equation](https://latex.codecogs.com/gif.latex?%24%24j%24%24) is being the depth of the ![equation](https://latex.codecogs.com/gif.latex?%24%24i%24%24) th dimension, ranging from one to ![equation](https://latex.codecogs.com/gif.latex?%24%24q%24%24) dimension.
+A tensor is composed of subsequent tensors with the ![equation](https://latex.codecogs.com/gif.latex?%24%24n%24%24) th tensors being composed of scalars.
 Scalars or "scaled" numbers, called scalars. Scalars are tensor's primitive elements and often taken to be real numbers, but there are also vector spaces with scalar multiplication by complex numbers, rational numbers, or generally any field.
 
 #### Features
@@ -21,12 +21,12 @@ ____
 - Optimized for performance
 - Learning purposes
 - Tensor class:
-    - The creation of tensors of $$p$$ rank/dimensions
+    - The creation of tensors of ![equation](https://latex.codecogs.com/gif.latex?%24%24p%24%24) rank/dimensions
     - TypedArray as the flat tensor vector
-    - Calculate tensor's length $$L = q_1 \times q_2 \dots q_p$$
-    - Calculate strides $$S^i = 1 \times q_{p-i} \times q_{p-i+1} \dots q_i$$
-    - Calculate indices out of coordinates $$I = (C_1 \times S_1) + (C_2 \times S_2) \dots C_i \times S_i$$
-    - Calculate coordinates out of indices $$C_i(I) = r_i(I)/S_i$$ such as $$r_i(I) = I - (C_{i-1} \times S_{i-1})$$
+    - Calculate tensor's length ![equation](https://latex.codecogs.com/gif.latex?%24%24L%20%3D%20q_1%20%5Ctimes%20q_2%20%5Cdots%20q_p%24%24)
+    - Calculate strides ![equation](https://latex.codecogs.com/gif.latex?%24%24S%5Ei%20%3D%201%20%5Ctimes%20q_%7Bp-i%7D%20%5Ctimes%20q_%7Bp-i&plus;1%7D%20%5Cdots%20q_i%24%24)
+    - Calculate indices out of coordinates ![equation](https://latex.codecogs.com/gif.latex?%24%24I%20%3D%20%28C_1%20%5Ctimes%20S_1%29%20&plus;%20%28C_2%20%5Ctimes%20S_2%29%20%5Cdots%20C_i%20%5Ctimes%20S_i%24%24)
+    - Calculate coordinates out of indices ![equation](https://latex.codecogs.com/gif.latex?%24%24C_i%28I%29%20%3D%20r_i%28I%29/S_i%24%24) such as ![equation](https://latex.codecogs.com/gif.latex?%24%24r_i%28I%29%20%3D%20I%20-%20%28C_%7Bi-1%7D%20%5Ctimes%20S_%7Bi-1%7D%29%24%24)
     - Calculate transpose
     - Just in time tensor filling using scalars or closure evaluation
     - Get indice or coordinates values
