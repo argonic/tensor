@@ -49,6 +49,120 @@ export default class Tensor {
         this.process(shape as number[]);
     }
     /**
+     * Tensor's max value
+     */
+    public get max(): number {
+        // @ts-ignore
+        return this.tensorMax;
+    }
+    /**
+     * Tensor's min value
+     */
+    public get min(): number {
+        // @ts-ignore
+        return this.tensorMin;
+    }
+    /**
+     * Tensor's length
+     */
+    public get length(): number {
+        return this.tensorLength;
+    }
+    /**
+     * Tensor's type
+     */
+    public get type(): TypedArrayConstructor {
+        return this.tensorType;
+    }
+    /**
+     * Tensor's strides
+     */
+    public get strides(): number[] {
+        return this.tensorStrides;
+    }
+    /**
+     * Tensor's dimensions
+     */
+    public get dimensions(): number {
+        return this.tensorDimensions;
+    }
+    /**
+     * Tensor's filling
+     */
+    public get filling(): number {
+        return this.tensorFill;
+    }
+    /**
+     * Tensor's filled
+     */
+    public get filled(): boolean {
+        return this.tensorFilled;
+    }
+    /**
+     * Tensor's shape
+     */
+    public get shape(): number[] {
+        return this.tensorShape;
+    }
+    /**
+     * Tensor's transpose
+     * _____
+     *
+     * Alias of Tensor.transpose()
+     */
+    public get T(): Tensor {
+        return this.transpose();
+    }
+    /**
+     * Tensor's N-Dimensional array
+     */
+    public get array(): number[] {
+        const out: number[] = [];
+        const last = (this.tensorDimensions - 1);
+        const flat = this.flat;
+        for (let index = 0; index < this.tensorLength; index++) {
+            const indexes = this.coordinates(index);
+            let node: any = out;
+            for (let i = 0; i < indexes.length; i++) {
+                const pos = indexes[i];
+                if (typeof node[pos] !== "object") {
+                    node[pos] = []; // create new object
+                    if (i === last) { // we are in the last dimension
+                        node[pos] = flat[index]; // copy
+                        continue;
+                    }
+                }
+                node = node[pos];
+            }
+        }
+        return out;
+    }
+    /**
+     * Tensor's get flat 1D array
+     */
+    public get flat(): TypedArray {
+        if (!this.tensorFilled) {
+            this.tensorFlat = this.getTypedArray();
+            this.tensorFlat = this.tensorFlat.fill(this.tensorFill);
+            this.tensorFilled = true;
+        }
+        return this.tensorFlat;
+    }
+    /**
+     * Tensor's update flat array
+     */
+    public set flat(array: TypedArray) {
+        if (array.constructor !== this.flat.constructor) {
+            throw new Error("copying from a different TypedArray type is forbidden");
+        }
+        if (array.length !== this.tensorLength) {
+            throw new Error("supplied array's length doesn't match with tensor's length");
+        }
+        this.tensorFlat = array.slice();
+        this.tensorMin = array.reduce((a, b) => Math.min(a, b));
+        this.tensorMax = array.reduce((a, b) => Math.max(a, b));
+    }
+    /**
      * Copy Tensor
      * _____
      *
@@ -117,120 +231,6 @@ export default class Tensor {
         return tensor;
     }
     /**
-     * Tensor's max value
-     */
-    public get max(): number {
-        // @ts-ignore
-        return this.tensorMax;
-    }
-    /**
-     * Tensor's min value
-     */
-    public get min(): number {
-        // @ts-ignore
-        return this.tensorMin;
-    }
-    /**
-     * Tensor's length
-     */
-    public get length(): number {
-        return this.tensorLength;
-    }
-    /**
-     * Tensor's type
-     */
-    public get type(): TypedArrayConstructor {
-        return this.tensorType;
-    }
-    /**
-     * Tensor's strides
-     */
-    public get strides(): number[] {
-        return this.tensorStrides;
-    }
-    /**
-     * Tensor's dimensions
-     */
-    public get dimensions(): number {
-        return this.tensorDimensions;
-    }
-    /**
-     * Tensor's filling
-     */
-    public get filling(): number {
-        return this.tensorFill;
-    }
-    /**
-     * Tensor's filled
-     */
-    public get filled(): boolean {
-        return this.tensorFilled;
-    }
-    /**
-     * Tensor's shape
-     */
-    public get shape(): number[] {
-        return this.tensorShape;
-    }
-    /**
-     * Tensor's get flat 1D array
-     */
-    public get flat(): TypedArray {
-        if (!this.tensorFilled) {
-            this.tensorFlat = this.getTypedArray();
-            this.tensorFlat = this.tensorFlat.fill(this.tensorFill);
-            this.tensorFilled = true;
-        }
-        return this.tensorFlat;
-    }
-    /**
-     * Tensor's update flat array
-     */
-    public set flat(array: TypedArray) {
-        if (array.constructor !== this.flat.constructor) {
-            throw new Error("copying from a different TypedArray type is forbidden");
-        }
-        if (array.length !== this.tensorLength) {
-            throw new Error("supplied array's length doesn't match with tensor's length");
-        }
-        this.tensorFlat = array.slice();
-        this.tensorMin = array.reduce((a, b) => Math.min(a, b));
-        this.tensorMax = array.reduce((a, b) => Math.max(a, b));
-    }
-    /**
-     * Tensor's transpose
-     * _____
-     *
-     * Alias of Tensor.transpose()
-     */
-    public get T(): Tensor {
-        return this.transpose();
-    }
-    /**
-     * Tensor's N-Dimensional array
-     */
-    public get array(): number[] {
-        const out: number[] = [];
-        const last = (this.tensorDimensions - 1);
-        const flat = this.flat;
-        for (let index = 0; index < this.tensorLength; index++) {
-            const indexes = this.coordinates(index);
-            let node: any = out;
-            for (let i = 0; i < indexes.length; i++) {
-                const pos = indexes[i];
-                if (typeof node[pos] !== "object") {
-                    node[pos] = []; // create new object
-                    if (i === last) { // we are in the last dimension
-                        node[pos] = flat[index]; // copy
-                        continue;
-                    }
-                }
-                node = node[pos];
-            }
-        }
-        return out;
-    }
-    /**
      * Fill the Tensor
      * _____
      *
@@ -284,17 +284,18 @@ export default class Tensor {
      *
      * @param indexes
      */
-    public index(...indexes: number[]): number {
-        if (indexes.length === 1) {
-            return indexes[0];
+    public index(...coordinates: number[]): number {
+        if (coordinates.length === 1) {
+            return coordinates[0];
         }
-        if (indexes.length !== this.tensorDimensions) {
-            throw new Error(`expected exactly ${this.tensorDimensions} indexes, got ${indexes.length} indexes instead`);
+        if (coordinates.length !== this.tensorDimensions) {
+            throw new Error(
+                `expected exactly ${this.tensorDimensions} coordinates, got ${coordinates.length} coordinates instead`);
         }
 
         let index = 0;
-        for (let i = 0; i < indexes.length; i++) {
-            index += indexes[i] * this.tensorStrides[i];
+        for (let i = 0; i < coordinates.length; i++) {
+            index += coordinates[i] * this.tensorStrides[i];
         }
         return index;
     }
@@ -304,10 +305,10 @@ export default class Tensor {
      *
      * If only one coordinate is supplied, this function returns index's value instead
      *
-     * @param indexes
+     * @param coordinates
      */
-    public get(...indexes: number[]): number {
-        return this.flat[this.index(...indexes)];
+    public get(...coordinates: number[]): number {
+        return this.flat[this.index(...coordinates)];
     }
     /**
      * Set coordinates' value
@@ -315,11 +316,11 @@ export default class Tensor {
      *
      * If only one coordinate is supplied, this function sets index's value instead
      *
-     * @param indexes
+     * @param coordinates
      */
-    public set(value: number, ...indexes: number[]): Tensor {
+    public set(value: number, ...coordinates: number[]): Tensor {
         const flat = this.flat;
-        const index = this.index(...indexes);
+        const index = this.index(...coordinates);
         const old = flat[index];
         if (old === this.tensorMax && value > old) {
             this.tensorMax = value;
