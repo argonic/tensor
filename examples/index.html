@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script src="../build/tensor.js"></script>
+        <script>
+            let tensor = new Tensor.default("uint8", 5,4,3)
+            let i = 1;
+            tensor.fill(() => i++)
+            for(let x=0;x<5;x++){
+                for(let y=0;y<4;y++){
+                    for(let z=0;z<3;z++){
+                        let index = tensor.index(x,y,z)
+                        let coordinates = tensor.coordinates(index)
+                        console.log(x, y, z, index, coordinates)
+                    }
+                }
+            }
+            console.log(tensor.dimensions)
+            console.log(tensor.shape)
+            console.log(tensor.strides)
+            console.log(tensor.length)
+            console.log(tensor.flat)
+            console.log(tensor.array)
+            console.log(tensor.T.array)
+            console.log(tensor)
+        </script>
+    </head>
+</html>

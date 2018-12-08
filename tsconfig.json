@@ -1,0 +1,21 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "outDir": "build",
+      "declaration": true,
+      "sourceMap": true,
+      "allowJs": false,
+      "checkJs": false,
+      "strict": true,
+      "pretty": true,
+      "noImplicitAny": true,
+    },
+    "include": [
+      "src/**/*.ts", "test/tensor.test.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+}
