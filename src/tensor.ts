@@ -116,8 +116,8 @@ export default class Tensor {
     /**
      * Tensor's N-Dimensional array
      */
-    public get array(): number[] {
-        const out: number[] = [];
+    public get array(): any[] {
+        const out: any[] = [];
         const last = (this.tensorDimensions - 1);
         const flat = this.flat;
         for (let index = 0; index < this.tensorLength; index++) {
@@ -171,8 +171,8 @@ export default class Tensor {
      * @param tensor
      * @return Tensor
      */
-    public copy(tensor: Tensor, instaniate: boolean = false): Tensor {
-        if (instaniate) {
+    public copy(tensor: Tensor, instantiate: boolean = false): Tensor {
+        if (instantiate) {
             return new Tensor(tensor.type, ...tensor.shape).copy(tensor);
         }
         if (tensor.filled) {
